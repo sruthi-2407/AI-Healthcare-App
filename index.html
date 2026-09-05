@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MediCare AI</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         1. SPLASH SCREEN
+    ========================== -->
+    <section id="splash" class="screen">
+
+        <div class="logo">+</div>
+
+        <h1>MediCare AI</h1>
+
+        <p>Your Smart Healthcare Companion</p>
+
+        <small>Powered by AI</small>
+
+    </section>
+
+
+    <!-- =========================
+         2. LOGIN SCREEN
+    ========================== -->
+    <section id="login" class="screen">
+
+        <div class="logo">+</div>
+
+        <h1>Welcome Back!</h1>
+
+        <p>Sign in to continue to MediCare AI</p>
+
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="Enter your email"
+        >
+
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="Enter your password"
+        >
+
+        <button
+            type="button"
+            onclick="loginUser()"
+        >
+            Login
+        </button>
+
+        <p>
+            Don't have an account?
+            <span onclick="showScreen('signup')">
+                Sign Up
+            </span>
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         3. SIGN UP SCREEN
+    ========================== -->
+    <section id="signup" class="screen">
+
+        <h1>Create Account</h1>
+
+        <p>Sign up to get started with MediCare AI</p>
+
+        <input
+            type="email"
+            id="signupEmail"
+            placeholder="Enter your email"
+        >
+
+        <input
+            type="password"
+            id="signupPassword"
+            placeholder="Enter your password"
+        >
+
+        <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm your password"
+        >
+
+        <button
+            type="button"
+            onclick="createAccount()"
+        >
+            Create Account
+        </button>
+
+        <p>
+            Already have an account?
+            <span onclick="showScreen('login')">
+                Login
+            </span>
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         4. HOME SCREEN
+    ========================== -->
+    <section id="home" class="screen">
+
+        <h1>Hello, User 👋</h1>
+
+        <input
+            class="search"
+            type="text"
+            placeholder="Search doctors, medicines..."
+        >
+
+
+        <!-- QUICK ACTIONS -->
+
+        <h2>Quick Actions</h2>
+
+        <div class="quick-actions">
+
+            <div
+                class="action-card"
+                onclick="showScreen('ai-assistant')"
+            >
+                🤖 AI Assistant
+            </div>
+
+            <div
+                class="action-card"
+                onclick="showScreen('doctors')"
+            >
+                👨‍⚕️ Find Doctors
+            </div>
+
+            <div
+                class="action-card"
+                onclick="showScreen('appointment')"
+            >
+                📅 Appointments
+            </div>
+
+            <div
+                class="action-card"
+                onclick="showScreen('reports')"
+            >
+                📋 Medical Reports
+            </div>
+
+        </div>
+
+
+        <!-- UPCOMING APPOINTMENT -->
+
+        <h2>Upcoming Appointment</h2>
+
+        <div class="appointment-card">
+
+            <strong>Dr. Sarah Johnson</strong>
+
+            <p>General Physician</p>
+
+            <p>Today • 10:30 AM</p>
+
+        </div>
+
+
+        <!-- HEALTH TIPS -->
+
+        <h2>Health Tips</h2>
+
+        <div class="health-card">
+
+            <strong>💧 Stay Hydrated</strong>
+
+            <p>Drink enough water every day.</p>
+
+        </div>
+
+
+        <!-- BOTTOM NAVIGATION -->
+
+        <div class="bottom-nav">
+
+            <span onclick="showScreen('home')">
+                🏠 Home
+            </span>
+
+            <span onclick="showScreen('ai-assistant')">
+                🤖 AI
+            </span>
+
+            <span onclick="showScreen('appointment')">
+                📅 Appointments
+            </span>
+
+            <span onclick="showScreen('profile')">
+                👤 Profile
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         5. AI ASSISTANT SCREEN
+    ========================== -->
+    <section id="ai-assistant" class="screen">
+
+        <h1>AI Health Assistant 🤖</h1>
+
+
+        <!-- CHAT MESSAGES -->
+
+        <div id="chatMessages">
+
+            <div class="ai-bubble">
+                Hello! 👋 How can I help you today?
+            </div>
+
+            <div class="user-bubble">
+                I have a headache
+            </div>
+
+            <div class="ai-bubble">
+                For a headache, try to rest and drink enough water.
+                If severe, consult a doctor.
+            </div>
+
+        </div>
+
+
+        <!-- CHAT INPUT -->
+
+        <div class="chat-input">
+
+            <input
+                type="text"
+                id="chatMessage"
+                placeholder="Ask me anything about your health..."
+                onkeydown="handleChatKey(event)"
+            >
+
+            <button
+                type="button"
+                onclick="sendMessage()"
+            >
+                ➤
+            </button>
+
+        </div>
+
+
+        <button
+            type="button"
+            onclick="showScreen('home')"
+        >
+            ← Back to Home
+        </button>
+
+    </section>
+
+
+    <!-- =========================
+         6. DOCTORS SCREEN
+    ========================== -->
+    <section id="doctors" class="screen">
+
+        <h1>Find Doctors 👨‍⚕️</h1>
+
+        <input
+            class="doctor-search"
+            type="text"
+            placeholder="🔍 Search doctors..."
+            onkeyup="searchDoctors()"
+        >
+
+
+        <!-- DOCTOR 1 -->
+
+        <div class="doctor-card">
+
+            <strong>Dr. Sarah Johnson</strong>
+
+            <p>General Physician</p>
+
+            <p>⭐ 4.8 • 120 Reviews</p>
+
+            <button
+                type="button"
+                onclick="selectDoctor('Dr. Sarah Johnson')"
+            >
+                Book Now
+            </button>
+
+        </div>
+
+
+        <!-- DOCTOR 2 -->
+
+        <div class="doctor-card">
+
+            <strong>Dr. Michael Smith</strong>
+
+            <p>Cardiologist</p>
+
+            <p>⭐ 4.7 • 98 Reviews</p>
+
+            <button
+                type="button"
+                onclick="selectDoctor('Dr. Michael Smith')"
+            >
+                Book Now
+            </button>
+
+        </div>
+
+
+        <!-- DOCTOR 3 -->
+
+        <div class="doctor-card">
+
+            <strong>Dr. Emily Davis</strong>
+
+            <p>Dermatologist</p>
+
+            <p>⭐ 4.6 • 85 Reviews</p>
+
+            <button
+                type="button"
+                onclick="selectDoctor('Dr. Emily Davis')"
+            >
+                Book Now
+            </button>
+
+        </div>
+
+
+        <!-- SPECIALTIES -->
+
+        <h2>Specialties</h2>
+
+        <div class="specialties">
+
+            <div>
+                🩺 General Physician
+            </div>
+
+            <div>
+                ❤️ Cardiologist
+            </div>
+
+            <div>
+                🧴 Dermatologist
+            </div>
+
+        </div>
+
+
+        <button
+            type="button"
+            onclick="showScreen('home')"
+        >
+            ← Back to Home
+        </button>
+
+    </section>
+
+
+    <!-- =========================
+         7. APPOINTMENT SCREEN
+    ========================== -->
+    <section id="appointment" class="screen">
+
+        <h1>Book Appointment 📅</h1>
+
+
+        <!-- DOCTOR INFORMATION -->
+
+        <div class="doctor-info">
+
+            <strong id="selectedDoctor">
+                Dr. Sarah Johnson
+            </strong>
+
+            <p>General Physician</p>
+
+            <p>⭐ 4.8 • 120 Reviews</p>
+
+        </div>
+
+
+        <!-- DATE -->
+
+        <h2>Select Date</h2>
+
+        <div class="date-box">
+            Today, 5 Sep
+        </div>
+
+
+        <!-- TIME -->
+
+        <h2>Select Time</h2>
+
+        <div class="date-box">
+            10:30 AM
+        </div>
+
+
+        <!-- CONFIRM -->
+
+        <button
+            type="button"
+            class="confirm-button"
+            onclick="confirmAppointment()"
+        >
+            Confirm Appointment
+        </button>
+
+
+        <button
+            type="button"
+            onclick="showScreen('home')"
+        >
+            ← Back to Home
+        </button>
+
+    </section>
+
+
+    <!-- =========================
+         8. REPORTS SCREEN
+    ========================== -->
+    <section id="reports" class="screen">
+
+        <h1>Medical Reports 📋</h1>
+
+
+        <!-- BLOOD TEST -->
+
+        <div class="report-card">
+
+            <strong>Blood Test Report</strong>
+
+            <p>Date: 02 Sep 2026</p>
+
+            <button
+                type="button"
+                onclick="viewReport('Blood Test Report')"
+            >
+                View Report →
+            </button>
+
+        </div>
+
+
+        <!-- X-RAY -->
+
+        <div class="report-card">
+
+            <strong>X-Ray Report</strong>
+
+            <p>Date: 28 Aug 2026</p>
+
+            <button
+                type="button"
+                onclick="viewReport('X-Ray Report')"
+            >
+                View Report →
+            </button>
+
+        </div>
+
+
+        <!-- PRESCRIPTION -->
+
+        <div class="report-card">
+
+            <strong>Prescription Report</strong>
+
+            <p>Date: 25 Aug 2026</p>
+
+            <button
+                type="button"
+                onclick="viewReport('Prescription Report')"
+            >
+                View Report →
+            </button>
+
+        </div>
+
+
+        <button
+            type="button"
+            onclick="showScreen('home')"
+        >
+            ← Back to Home
+        </button>
+
+    </section>
+
+
+    <!-- =========================
+         9. PROFILE SCREEN
+    ========================== -->
+    <section id="profile" class="screen">
+
+        <h1>My Profile 👤</h1>
+
+
+        <!-- PROFILE CARD -->
+
+        <div class="profile-card">
+
+            <strong>User</strong>
+
+            <p>user@email.com</p>
+
+            <button
+                type="button"
+                onclick="editProfile()"
+            >
+                Edit Profile →
+            </button>
+
+        </div>
+
+
+        <!-- SETTINGS LIST -->
+
+        <div class="settings-list">
+
+
+            <!-- SETTINGS -->
+
+            <div
+                class="setting-row"
+                onclick="openSettings()"
+            >
+                ⚙️ Settings
+            </div>
+
+
+            <!-- NOTIFICATIONS -->
+
+            <div
+                class="setting-row"
+                onclick="openNotifications()"
+            >
+                🔔 Notifications
+            </div>
+
+
+            <!-- PRIVACY -->
+
+            <div
+                class="setting-row"
+                onclick="openPrivacy()"
+            >
+                🔒 Privacy & Security
+            </div>
+
+
+            <!-- LOGOUT -->
+
+            <div class="setting-row">
+
+                <button
+                    type="button"
+                    onclick="logoutUser()"
+                >
+                    🚪 Logout
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- BACK HOME -->
+
+        <button
+            type="button"
+            onclick="showScreen('home')"
+        >
+            ← Back to Home
+        </button>
+
+    </section>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
